@@ -38,3 +38,12 @@ body {
 .modal-body {
   font-size: 16px;
 }
+
+.clock {
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  justify-content:right;
+  align-items: right;
+}
+
