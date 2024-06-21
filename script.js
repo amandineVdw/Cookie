@@ -7,6 +7,7 @@ let bonusCost = 200;
 let autoClickInterval;
 let bonusTimeout;
 let clickCounter = 0; // Nouveau compteur de clics
+let bonusActivationCounter = 0; // Nouveau compteur d'activations de bonus
 
 const scoreLabel = document.getElementById("scoreValue");
 const multiplierLabel = document.getElementById("multiplierValue");
@@ -19,28 +20,11 @@ const bonusButton = document.getElementById("bonusButton");
 //Amandine - COOKIE IMAGES - EVOLUTION
 const cookieImage = document.getElementById("cookieImage");
 
-const cookieImages = [
-  "image/cookie.image1.png",
-  "image/cookie.image2.png",
-  "image/cookie.image3.png",
-];
-
-// Amandine - Modif - Fonction pour gérer le clic sur le cookie
 document.getElementById("cookie").addEventListener("click", function () {
   score += clickValue * multiplier;
   clickCounter++;
   updateScore();
-  updateCookieImage();
 });
-
-function updateCookieImage() {
-  if (clickCounter > 0 && clickCounter % 100 === 0 && clickCounter <= 1000) {
-    const imageIndex = Math.floor(clickCounter / 100) - 1;
-    if (cookieImages[imageIndex]) {
-      cookieImage.querySelector("img").src = cookieImages[imageIndex];
-    }
-  }
-}
 
 // Buy multiplier
 multiplierButton.addEventListener("click", function () {
@@ -68,12 +52,16 @@ autoClickButton.addEventListener("click", function () {
   }
 });
 
-// Buy bonus
+// Amandine - modif - Buy bonus
 bonusButton.addEventListener("click", function () {
   if (score >= bonusCost) {
     score -= bonusCost;
     updateScore();
     activateBonus();
+    bonusButton.classList.add("animate");
+    setTimeout(() => {
+      bonusButton.classList.remove("animate");
+    }, 600); // 0.6s = 600ms
   } else {
     alert("Not enough cookies!");
   }
@@ -106,11 +94,47 @@ function activateBonus() {
   bonusLabel.textContent++;
   updateScore();
 
+  //Amandine - Change cookie image on bonus activation
+  bonusActivationCounter++;
+  changeCookieImageOnBonus("cookie");
+
   // Timer for bonus duration
   bonusTimeout = setTimeout(function () {
     clickValue /= 2; // Reset click value after bonus expires
     bonusLabel.textContent--;
   }, 30000);
+}
+
+// Amandine - modif - Buy bonus
+bonusButton.addEventListener("click", function () {
+  if (score >= bonusCost) {
+    score -= bonusCost;
+    updateScore();
+    activateBonus();
+    bonusButton.classList.add("animate");
+    setTimeout(() => {
+      bonusButton.classList.remove("animate");
+    }, 600); // 0.6s = 600ms
+  } else {
+    alert("Not enough cookies!");
+  }
+});
+
+//Amandine- Function change cookie image on bonus activation
+function changeCookieImageOnBonus(imageId) {
+  let imageUrl = "";
+  switch (bonusActivationCounter % 3) {
+    case 0:
+      imageUrl = "image/cookie.image1.png";
+      break;
+    case 1:
+      imageUrl = "image/cookie.image2.png";
+      break;
+    case 2:
+      imageUrl = "image/cookie.image3.png";
+      break;
+  }
+  document.getElementById(imageId).querySelector("img").src = imageUrl;
 }
 
 /* Disable buttons if not enough cookies
