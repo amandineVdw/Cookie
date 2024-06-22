@@ -1,0 +1,56 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #3168ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .usesIcon {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  #lumps {
+    display: grid;
+    grid-template-columns: repeat(2, 100px); /* 2 columns of 100px */
+    grid-template-rows: repeat(2, 100px);    /* 2 rows of 100px */
+    gap: 0; /* No gap between squares */
+  }
+  
+  #scoreContainer {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  #lumpsAmount {
+    font-size: 24px;
+    color: black;
+  }
+  
+  .floatingText {
+    position: absolute;
+    animation: moveUp 1s forwards;
+    font-size: 18px;
+    pointer-events: none;
+  }
+  
+  @keyframes moveUp {
+    from {
+      top: 50%;
+      opacity: 1;
+    }
+    to {
+      top: -50%;
+      opacity: 0;
+    }
+  }
+  
