@@ -8,10 +8,44 @@ body {
     height: 100vh;
   }
   
-  .usesIcon {
+#lumpsIcon1 {
     width: 100px;
     height: 100px;
-    background-color: grey;
+    background-color: burlywood;
+    border-radius: 90% 0% 0% 0%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  #lumpsIcon2 {
+    width: 100px;
+    height: 100px;
+    background-color: burlywood;
+    border-radius: 0% 90% 0% 0%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  #lumpsIcon3 {
+    width: 100px;
+    height: 100px;
+    background-color: burlywood;
+    border-radius: 0% 0% 0% 90%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  #lumpsIcon4 {
+    width: 100px;
+    height: 100px;
+    background-color: burlywood;
+    border-radius: 0% 0% 90% 0%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
