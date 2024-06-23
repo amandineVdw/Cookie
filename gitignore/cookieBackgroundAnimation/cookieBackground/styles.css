@@ -1,6 +1,6 @@
 .background-container {
   width: 100%; /* ou la largeur souhaitée */
-  height: 400px; /* ou la hauteur souhaitée */
+  height: 100%; /* ou la hauteur souhaitée */
   background-image: url("image/cookieShower1.png");
   background-size: cover;
   background-position: center;
@@ -21,3 +21,19 @@
     background-image: url("image/cookieShower1.png"); /* Retour à l'image d'origine */
   }
 }
+
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Appliquer l'animation à votre élément */
+  .element-to-animate {
+    animation: fadeIn 1s ease-out;
+    opacity: 0; /* Assure que l'élément est invisible au départ */
+  }
