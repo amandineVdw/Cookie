@@ -1,0 +1,191 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.cookie-container {
+  display: inline-block;
+}
+
+#lumpsIcon1,
+#lumpsIcon2,
+#lumpsIcon3,
+#lumpsIcon4 {
+  width: 135px;
+  height: 135px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+#lumpsIcon1 {
+  background: url(image/cookie.image1.png);
+}
+#lumpsIcon2 {
+  background: url(image/cookie.image2.png);
+}
+#lumpsIcon3 {
+  background: url(image/cookie.image3.png);
+}
+#lumpsIcon4 {
+  background: url(image/cookie.image4.png);
+}
+
+#lumps {
+  display: grid;
+  grid-template-columns: repeat(2, 135px); /* 2 columns of 135px */
+  grid-template-rows: repeat(2, 135px); /* 2 rows of 135px */
+  gap: 0; /* No gap between squares */
+}
+
+#scoreContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#lumpsScore {
+  font-size: 1.5em;
+  color: black;
+}
+
+
+.floatingText {
+  position: absolute;
+  animation: moveUp 1s forwards;
+  font-size: 2em;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+@keyframes moveUp {
+  from {
+    top: 100%;
+    opacity: 1;
+  }
+  to {
+    top: -150%;
+    opacity: 0;
+  }
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*Amandine*/
+button#bonusButton.btn {
+  position: relative;
+  padding: 10px 22px;
+  background: #9a7d0a;
+  border-radius: 6px;
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+#bonusButton:active {
+  transform: scale(0.96);
+}
+
+#bonusButton.animate::before,
+#bonusButton.animate::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 200%;
+  width: 150%;
+  z-index: -1;
+  background-repeat: no-repeat;
+}
+
+#bonusButton.animate::before {
+  top: -100%;
+  background-image: radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #9a7d0a 20%, transparent 30%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #9a7d0a 15%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%);
+  background-size: 10% 10%, 20% 20%, 15% 20%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+    18% 18%;
+  background-position: 50% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 40% 90%,
+    55% 90%, 70% 90%;
+  animation: topBubbles 0.6s ease-in-out forwards;
+}
+
+@keyframes topBubbles {
+  50% {
+    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+      50% 50%, 65% 20%, 90% 30%;
+  }
+  100% {
+    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+      50% 40%, 65% 10%, 90% 20%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+#bonusButton.animate::after {
+  bottom: -100%;
+  background-image: radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #9a7d0a 15%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%),
+    radial-gradient(circle, #9a7d0a 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+  background-position: 10% 0%, 30% 10%, 55% 0%, 70% 0%, 85% 0%, 70% 0%, 70% 0%;
+  animation: bottomBubbles 0.6s ease-in-out forwards;
+}
+
+@keyframes bottomBubbles {
+  50% {
+    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+      105% 0%;
+  }
+  100% {
+    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+      110% 10%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}

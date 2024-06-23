@@ -11,7 +11,8 @@ body {
   overflow: hidden;
   width: 400px; /* Largeur de chaque frame */
   height: 600px; /* Hauteur de chaque frame */
-  background: url(image/superCookie.png);
+  background: ul(image/superCookie.png);
+
   background-size: 400px 7200px; /* Ajuster selon les dimensions de l'image sprite */
   animation: none; /* Animation désactivée par défaut */
 }

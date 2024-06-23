@@ -8,6 +8,7 @@ let autoClickInterval;
 let bonusTimeout;
 let clickCounter = 0; // Nouveau compteur de clics
 let bonusActivationCounter = 0; // Nouveau compteur d'activations de bonus
+let showFloatingText = (element,text);
 
 const scoreLabel = document.getElementById("scoreValue");
 const multiplierLabel = document.getElementById("multiplierValue");
@@ -20,11 +21,32 @@ const bonusButton = document.getElementById("bonusButton");
 //Amandine - COOKIE IMAGES - EVOLUTION
 const cookieImage = document.getElementById("cookieImage");
 
-document.getElementById("cookie").addEventListener("click", function () {
-  score += clickValue * multiplier;
-  clickCounter++;
-  updateScore();
-});
+const Game = document.getElementById("Lumps");
+
+let imageIndex = 0;
+var floatingText = document.createElement("div")
+
+Game = {
+   clickLump: function (element) {
+    this.score+= clickValue*multiplier;
+    this.updateScore();
+    this.showFloatingText(element, "+1");
+  },
+  updateScore: function () {
+    var lumpsAmount = document.getElementById("lumpsScore");
+    lumpsAmount.innerText = this.score;
+  },
+  showFloatingText: function (element, text) {
+    floatingText.className = "floatingText";
+    floatingText.innerText = text;
+
+    element.appendChild(floatingText);
+
+    setTimeout(function () {
+      element.removeChild(floatingText);
+    }, 1000); // Remove floating text after 1 second
+  },
+};
 
 // Buy multiplier
 multiplierButton.addEventListener("click", function () {
@@ -120,22 +142,6 @@ bonusButton.addEventListener("click", function () {
   }
 });
 
-//Amandine- Function change cookie image on bonus activation
-function changeCookieImageOnBonus(imageId) {
-  let imageUrl = "";
-  switch (bonusActivationCounter % 3) {
-    case 0:
-      imageUrl = "image/cookie.image1.png";
-      break;
-    case 1:
-      imageUrl = "image/cookie.image2.png";
-      break;
-    case 2:
-      imageUrl = "image/cookie.image3.png";
-      break;
-  }
-  document.getElementById(imageId).querySelector("img").src = imageUrl;
-}
 
 /* Disable buttons if not enough cookies
 function checkCookies() {

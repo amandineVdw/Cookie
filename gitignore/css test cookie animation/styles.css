@@ -4,29 +4,25 @@ body {
   background-color: #3168ff;
 }
 
+
+
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  width: 1000px;
-  height: 1021px;
+  display: block;
+  width: 1113px;
+  height: 999px;
   border: 1px solid white;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
-  background: url(image/superCookie.png);
-  /*steps = nb frames "images"*/
-  animation: kick 10s steps(8) infinite;
+  background: url(image/superCookie.png) no-repeat;
+  animation: superCookie 7s steps(11) infinite;
 }
 
-@keyframes kick {
+
+
+@keyframes superCookie {
   0% {
     background: 0 0;
   }
   /*Use height of image (sprite-sheet) here as y position*/
   100% {
-    background-position: 0 -7929px;
+    background-position: 0 -10992px;
   }
 }
