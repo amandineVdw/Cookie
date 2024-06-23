@@ -21,6 +21,8 @@ body {
   align-items: center;
   cursor: pointer;
   position: relative;
+  color: red; /* Couleur du texte */
+  font-size: 1.5em; /* Taille de la police */
 }
 
 #lumpsIcon1 {
@@ -37,6 +39,7 @@ body {
 }
 
 #lumps {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, 135px);
   grid-template-rows: repeat(2, 135px);
@@ -107,3 +110,29 @@ button#bonusButton.animate {
     transform: translateY(0);
   }
 }
+
+#sprite {
+  position: absolute;
+  width: 540px; /* Largeur de l'animation */
+  height: 485px; /* Hauteur de l'animation */
+  background: url(image/cookieAnimation.png); /* Image du sprite pour l'animation */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; /* Assure que l'animation couvre tout le conteneur de l'animation */
+  z-index: 1; /* Assure que l'animation est au-dessus des autres éléments */
+  display: none; /* Caché initialement */
+  animation: animateSprite 1s steps(11) infinite; /* Animation plus lente */
+  top: 0; /* Position initiale en haut du conteneur */
+  left: 400px; /* Position initiale à gauche du conteneur */
+}
+
+@keyframes animateSprite {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -5335px; /* Ajuster la taille totale de l'image sprite */
+  }
+}
+
+

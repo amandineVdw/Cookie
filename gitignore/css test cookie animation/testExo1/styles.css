@@ -1,37 +1,23 @@
-body {
-  padding: 0;
+body{
+  background: url(image/bgBlue.jpg);
+  background-size: cover;
   margin: 0;
-  background-color: #3168ff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   width: 400px; /* Largeur de chaque frame */
-  height: 600px; /* Hauteur de chaque frame */
-  background: ul(image/superCookie.png);
-
-  background-size: 400px 7200px; /* Ajuster selon les dimensions de l'image sprite */
-  animation: none; /* Animation désactivée par défaut */
+  height: 360px; /* Hauteur de chaque frame */
+  background: url(image/cookieAnimation.png);
+  background-repeat: no-repeat;
 }
 
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border: 2px solid black;
-  display: none; /* Initialement caché */
-}
 
-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-}
+
+

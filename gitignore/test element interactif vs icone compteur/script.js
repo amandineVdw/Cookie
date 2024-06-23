@@ -17,6 +17,8 @@ const autoClickButton = document.getElementById("autoClickButton");
 const bonusLabel = document.getElementById("bonusValue");
 const bonusButton = document.getElementById("bonusButton");
 const scoreLabel = document.getElementById("lumpsScore");
+var sprite = document.getElementById('sprite');
+var isAnimationActive = false; // Variable pour suivre l'état de l'animation
 
 function clickLump(element) {
   score += clickValue * multiplier;
@@ -121,12 +123,62 @@ function changeCookieImageAll(index) {
   }
 }
 
-function changeCookieImageOnBonus() {
-  if (bonusActivationCounter >= 1 && bonusActivationCounter <= 5) {
-    changeCookieImageAll(1);
-  } else if (bonusActivationCounter > 5 && bonusActivationCounter <= 10) {
-    changeCookieImageAll(2);
-  } else {
-    changeCookieImageAll(3);
+
+
+function activateBonus() {
+  clickValue *= 2;
+  bonusLabel.textContent++;
+  updateScore();
+  bonusActivationCounter++;
+  changeCookieImageOnBonus();
+  bonusTimeout = setTimeout(function () {
+      clickValue /= 2;
+      bonusLabel.textContent--;
+      deactivateBonusAnimation(); // Désactiver l'animation lorsque le bonus expire
+  }, 30000);
+
+  activateBonusAnimation(); // Activer l'animation lorsque le bonus est activé
+}
+
+function deactivateBonus() {
+  clearTimeout(bonusTimeout); // Annuler le timeout du bonus si désactivé manuellement
+  clickValue /= 2;
+  bonusLabel.textContent--;
+  deactivateBonusAnimation(); // Désactiver l'animation lorsque le bonus est désactivé manuellement
+}
+
+function activateBonusAnimation() {
+  if (!isAnimationActive) { // Vérifie si l'animation n'est pas déjà active
+      sprite.style.display = 'block'; // Affiche l'animation lorsque le bonus est activé
+      isAnimationActive = true; // Met à jour l'état de l'animation
   }
 }
+
+function deactivateBonusAnimation() {
+  if (isAnimationActive) { // Vérifie si l'animation est active
+      sprite.style.display = 'none'; // Cache l'animation lorsque le bonus n'est pas actif
+      isAnimationActive = false; // Met à jour l'état de l'animation
+  }
+}
+
+
+function changeCookieImageOnBonus() {
+  if (bonusActivationCounter >= 1 && bonusActivationCounter <= 5) {
+      changeCookieImageAll(1);
+  } else if (bonusActivationCounter > 5 && bonusActivationCounter <= 10) {
+      changeCookieImageAll(2);
+  } else if (bonusActivationCounter > 10) {
+      activateBonusAnimation(); // Activer l'animation lorsque le bonus est supérieur à 10
+  } else {
+      changeCookieImageAll(3);
+      deactivateBonusAnimation(); // Désactiver l'animation si bonusActivationCounter ne correspond à aucun cas
+  }
+}
+
+// Autres fonctions JavaScript nécessaires ici...
+// Code à exécuter lorsque la page est chargée
+document.addEventListener("DOMContentLoaded", function () {
+  updateScore();
+  updateMultiplier();
+  checkCookies();
+});
