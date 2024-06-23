@@ -1,0 +1,23 @@
+.background-container {
+  width: 100%; /* ou la largeur souhaitée */
+  height: 400px; /* ou la hauteur souhaitée */
+  background-image: url("image/cookieShower1.png");
+  background-size: cover;
+  background-position: center;
+  animation: animateBackground 10s infinite; /* 10s = durée de l'animation */
+}
+
+@keyframes animateBackground {
+  0% {
+    background-image: url("image/cookieShower1.png");
+  }
+  33.33% {
+    background-image: url("image/cookieShower2.png");
+  }
+  66.66% {
+    background-image: url("image/cookieShower3.png");
+  }
+  100% {
+    background-image: url("image/cookieShower1.png"); /* Retour à l'image d'origine */
+  }
+}
