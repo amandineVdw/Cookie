@@ -1,39 +1,41 @@
+/* CSS pour le conteneur du fond d'écran */
 .background-container {
-  width: 100%; /* ou la largeur souhaitée */
-  height: 100%; /* ou la hauteur souhaitée */
-  background-image: url("image/cookieShower1.png");
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+/* Styles pour les différentes images */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
-  animation: animateBackground 10s infinite; /* 10s = durée de l'animation */
+  opacity: 0; /* Assure que toutes les images sont initialement invisibles */
+  transition: opacity 1s ease-in-out; /* Transition douce de l'opacité */
+  animation: infinite;
 }
 
-@keyframes animateBackground {
-  0% {
-    background-image: url("image/cookieShower1.png");
-  }
-  33.33% {
-    background-image: url("image/cookieShower2.png");
-  }
-  66.66% {
-    background-image: url("image/cookieShower3.png");
-  }
-  100% {
-    background-image: url("image/cookieShower1.png"); /* Retour à l'image d'origine */
-  }
+/* Chaque image a une classe différente pour contrôler l'ordre de l'animation */
+.image1 {
+  background-image: url("image/cookieShower1.png");
+}
+.image2 {
+  background-image: url("image/cookieShower2.png");
+}
+.image3 {
+  background-image: url("image/cookieShower3.png");
 }
 
 
-@keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  
-  /* Appliquer l'animation à votre élément */
-  .element-to-animate {
-    animation: fadeIn 1s ease-out;
-    opacity: 0; /* Assure que l'élément est invisible au départ */
-  }
+
+
+@-webkit-keyframes nomanimation { ... } /* -webkit- Chrome et Safari */
+@-moz-keyframes nomanimation { ... } /* -moz -Firefox */
+@-o-keyframes nomanimation{ ... } /* -o- Opera */
+@keyframes nomanimation{ ... } /* Navigateur aux normes w3c */

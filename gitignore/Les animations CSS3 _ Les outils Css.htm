@@ -1,0 +1,741 @@
+
+  CSSAnimation
+
+Accueil <https://outils-css.aliasdmc.fr/> Plan du site <#bloc-maps>
+Recherche <#bloc-search> Sommaire <#bloc-link-anchors>
+
+  * Les animations CSS3. <#bloc-def>
+  * Déclarer votre animation CSS3. <#bloc-declaration>
+  * Paramétrer votre animation CSS3. <#bloc-parametrage>
+  * Déclencher une animation CSS3. <#bloc-lancement>
+  * Animation vs transition CSS3. <#bloc-animation-vs-transition>
+  * Compatibilité avec les navigateurs. <#bloc-compatibility>
+  * Exemples d'animations CSS3. <#bloc-exemple>
+  * Informations complémentaires. <#bloc-infos>
+  * Soutenir le site <#donation>
+
+Accueil <https://outils-css.aliasdmc.fr/> > Les animations CSS <https://
+outils-css.aliasdmc.fr/les-animations-css3.php> > Article <#bloc-content>
+
+
+    Les animations CSS3.
+
+Depuis CSS3, vous avez la possibilité de faire des animations en CSS3.
+Cependant, actuellement (05-2013) beaucoup navigateurs ne reconnaissent
+pas les propriétés CSS3 <#infocss3> sans les avoir au préalable
+préfixées. Par exemple, rien que pour définir le bloc d'animation, il
+faut faire quatre déclarations :
+|@-webkit-keyframes nomanimation { ... } /* -webkit- Chrome et Safari */
+@-moz-keyframes nomanimation { ... } /* -moz -Firefox */
+@-o-keyframes nomanimation{ ... } /* -o- Opera */
+@keyframes nomanimation{ ... } /* Navigateur aux normes w3c */
+
+| Il en est de même pour toutes les propriétés CSS liées aux animations
+CSS. Mais bon, une fois que l'on sait cela, le principe est assez simple.
+
+Vous trouverez plus bas les compatibilités navigateurs <#bloc-
+compatibility> concernant animations en CSS3.
+
+
+    Déclarer une animation CSS3.
+
+En Css3 votre animation est regroupée dans une règle Css *@keyframes*
+<https://www.zonecss.fr/proprietes-css/keyframes-css.html>. Cette règle
+décrit les propriétés CSS à modifier *par image clé*.
+*L'image clé correspond* à un moment de votre animation Css et elle est
+identifiée par un pourcentage où *0%* correspond à la première image clé
+(obligatoire) et *100%* à votre dernière image clé (obligatoire).
+Si la durée est de 20s (voir animation-duration) alors 0% correspond à
+la seconde 0 et 100% à la seconde 20 de l'animation Css3. Pour trouver
+la valeur du pourcentage de la seconde 10 de l'animation Css3, vous
+devez faire le calcul suivant :
+|Seconde ciblée*100/Durée totale| soit |10*100/20 = 50%|.
+|@keyframes *nomanimation*{
+0%{ /* Propriétés css à modifier au départ */ }
+50%{ /* Propriétés css à modifier à la 10s dans notre cas */ }
+100%{ /* Propriétés css à modifier à la fin */ }
+}
+
+| Vous devez aussi *donner un *identifiant* à votre animation Css3*.
+Dans notre cas, l'identifiant est représenté par "*nomanimation*" dans
+l'exemple ci-dessus. L'identifiant doit être unique. Eviter les
+caractères spéciaux et les accents.
+*Les propriétés CSS que l'on peut animer sont* : les propriétés CSS de
+transformations <https://www.zonecss.fr/faq/question-
+reponse.html#transformation-css>, les propriétés css de couleurs, les
+propriétés css de positions <https://www.zonecss.fr/faq/question-
+reponse.html#la-gestion-des-blocs>, les propriétés css de tailles
+<https://www.zonecss.fr/faq/question-reponse.html#la-gestion-des-blocs>,
+les propriétés css de marges extérieures <https://www.zonecss.fr/cours-
+css/les-marges-exterieures-et-interieures.html#les-marges-interieures>
+et de marges intérieures <https://www.zonecss.fr/faq/question-
+reponse.html#les-marges-interieures>.
+
+
+    Paramétrer votre animation CSS3.
+
+Maintenant que nous avons décrit en CSS3 le comportement de notre
+animation grâce à la règle CSS3 *@keyframes* <https://www.zonecss.fr/
+proprietes-css/keyframes-css.html>, il nous reste quelques paramétrages
+à faire.
+
+
+      *animation-name*, propriété d'animation de nommage
+
+Il nous faut définir l'élément sur lequel nous allons l'appliquer
+l'animation Css3. La propriété Css3 *animation-name* <https://
+www.zonecss.fr/proprietes-css/animation-name-css.html> va vous permettre
+spécifier le nom l'animation à utiliser. Vous lui assignerez la valeur
+de l'identifiant de l'animation Css3, dans notre cas *nomanimation*.
+|@keyframes *nomanimation*{ ... }
+div.bloccible{ animation-name : *nomanimation*; }
+
+|
+
+
+      *animation-duration*, propriété d'animation de durée
+
+Nous devons aussi préciser la durée en Css3 de l'animation avec la
+propriété CSS3 *animation-duration* <https://www.zonecss.fr/proprietes-
+css/animation-duration-css.html>.
+Cette durée peut être exprimée en :
+- *secondes*, le nombre sera suivit par "*s*"
+- *millisecondes* : le nombre sera suivit par "*ms*".
+|@keyframes nomanimation { ... }
+div.bloccible{ animation-name : nomanimation; *animation-duration : 20s*; }
+
+|
+
+
+      *animation-iteration-count*, propriété d'animation de répétition
+
+Nous pouvons aussi préciser le nombre de fois que l'animation Css3 sera
+jouée. La propriété css3 *animation-iteration-count:infinite* <https://
+www.zonecss.fr/proprietes-css/animation-iteration-count-css.html> va
+vous permettre de jouer en boucle l'animation CSS3. La valeur par défaut
+est 1.
+|@keyframes nomanimation { ... }
+div.bloccible{ animation-name : nomanimation; *animation-iteration-
+count : infinite*; }
+
+|
+
+
+      *animation-fill-mode*
+
+Il est possible que vous ayez besoin de la propriété css3 *animation-
+fill-mode* <https://www.zonecss.fr/proprietes-css/animation-fill-mode-
+css.html> qui permet de spécifier la manière dont doit être interprété
+les propriétés css contenues dans la première ou dernière image clé.
+Dans le code suivant, la couleur initiale est yellow, quand l'animation
+Css va commencer la couleur devient red puis évolue vers le green et une
+fois l'animation Css finie la couleur redevient yellow,
+|@keyframes nomanimation { 0%{background-color:red;} 100%{background-
+color:green;} }
+div.bloccible{ animation-name : nomanimation; background-color:yellow; }
+
+| Dans le code suivant, la couleur initiale est la couleur de la
+première image clé, quand l'animation Css3 va commencer la couleur
+évolue vers le green et une fois l'animation Css3 finie la couleur reste
+green,
+|@keyframes nomanimation { 0%{background-color:red;} 100%{background-
+color:green;} }
+div.bloccible{ animation-name : nomanimation; background-color:yellow;
+*animation-fill-mode:both;*}
+
+|
+
+
+      Les autres propriétés d'animation CSS3.
+
+Il existe d'autres propriétés CSS3 pour paramétrer votre animation Css
+que je vous laisse découvrir :
+- *animation-timing-function* <https://www.zonecss.fr/proprietes-css/
+animation-timing-function-css.html> : cette propriété css3 permet de
+spécifier la manière de progresser entre les images clés. Sa valeur par
+défaut est *ease*.
+- *animation-play-state* <https://www.zonecss.fr/proprietes-css/
+animation-play-state-css.html> : cette propriété css3 permet de mettre
+en pause l'animation Css. Sa valeur par défaut est *running*.
+- *animation-direction* <https://www.zonecss.fr/proprietes-css/
+animation-direction-css.html> : cette propriété css3 permet de spécifier
+le sens de lecture de l'animation. Sa valeur par défaut est *normal*
+- *animation-delay* <https://www.zonecss.fr/proprietes-css/animation-
+delay-css.html> : cette propriété css3 permet de spécifier un temps de
+latence avant de commencer la lecture de l'animation. Sa valeur par
+défaut est *0s*.
+- *animation-direction* <https://www.zonecss.fr/proprietes-css/
+animation-direction-css.html> : cette propriété css3 permet de spécifier
+permet de spécifier le sens de lecture de l'animation appliquée,
+notamment pour les répétitions. Sa valeur par défaut est *normal*.
+
+
+    Déclencher une animation CSS3.
+
+
+      Directement à l'exécution
+
+Vous pouvez déclencher une animation CSS3 directement comme nous l'avons
+fait dans les exemples précédant.
+|@keyframes monanimation {
+0% {margin-left:0;}
+100% {margin-left:100px;}
+}
+div.bloccible{ animation-name : nomanimation;}
+
+|Déplier Mon animation est automatique.
+
+
+      Au changement d'état.
+
+Vous pouvez déclencher votre animation CSS3 lors d'un changement d'état
+par exemple lorsque la souris survole l'élément qui doit être animé.
+Pour cela vous devez utilise une *pseudo-classe* <https://
+www.zonecss.fr/cours-css/les-selecteurs-css.html#selecteur-css-pseudo-
+classe> comme *:hover* <https://www.zonecss.fr/proprietes-css/hover-
+css.html#dfn-hover>, *:focus* <https://www.zonecss.fr/proprietes-css/
+focus-css.html#dfn-focus>,...
+|@keyframes monanimation {
+0% {margin-left:0;}
+100% {margin-left:100px;}
+}
+div.bloccible:hover{ animation-name : nomanimation;}
+
+|Déplier Passer le curseur sur moi pour démarrer l'animation.
+
+
+      Assignation d'une classe
+
+Une autre possibilité pour déclencher votre animation CSS3, consiste à
+assigner en Javascript la classe <https://www.zonecss.fr/cours-css-
+javascript/manipuler-les-valeurs-de-l-attribut-class.html> à l'élément
+qui doit être animé.
+|<style>@keyframes monanimation {
+0% {margin-left:0;}
+100% {margin-left:100px;}
+}
+.mon-animation{ animation-name : nomanimation;}</style>
+<div id="bloc-anime" onclick="addAnimation()">element animable</div>
+<script>
+function addAnimation(){
+// Avec Jquery
+$("#bloc-anime").addClass("mon-animation")
+// En javascript
+document.getElementById("bloc-anime").classList.add("mon-animation")
+}
+</script>
+
+|Déplier Cliquez moi pour lancer l'animation.
+
+
+    Animation vs transition.
+
+En règle générale, vous utiliserez plus souvent des transitions
+(*transition* <http://www.zonecss.fr/proprietes-css/transition-
+css.html#dfn-transition>), car votre "Animation" se limite à un
+changement ne nécessitant que deux étapes.
+
+Partez du principe que vous devez utiliser les transitions par défaut.
+Voici les éléments qui font que vous utilisez la propriété css
+*@keyframes* <http://www.zonecss.fr/proprietes-css/keyframes-css.html>
+plutôt que la propriété css *transition* <http://www.zonecss.fr/
+proprietes-css/transition-css.html#dfn-transition> :
+- L'Animation doit se répéter.
+- L'Animation a besoin de points intermédiaires.
+- L'Animation démarre toute seule.
+- L'Animation peut faire une pause.
+
+Sachez aussi :
+- que les *Transitions* sont plus simples à gérer en javascript.
+- que lorsqu'une transition est interrompue durant son exécution, chaque
+propriété modifiée peut revenir à son état initial en étant animées, ce
+que ne peut pas faire les animations.
+
+
+    Compatibilité avec les navigateurs.
+
+Je tiens compte du fait que vous avez mis aussi l'ensemble des
+propriétés préfixées (moz,webkit,o). La compatibilité dépendra aussi de
+la compatibilité de propriété css mise dans l'image clé.
+
+Propriété d'animation prefixée -webkit- compatible avec le navigateur
+Chrome 2.1+Propriété d'animation prefixée -webkit- compatible avec le
+navigateur Chrome 2.1+
+Chrome 2.1+
+
+Propriété d'animation prefixée -moz- compatible avec le navigateur
+FireFox 5+Propriété d'animation prefixée -moz- compatible avec le
+navigateur FireFox 5+
+FireFox 5+
+
+Propriété d'animation CSS3 compatible avec le navigateur FireFox
+19+Propriété d'animation CSS3 compatible avec le navigateur FireFox 19+
+FireFox 19+
+
+Propriété d'animation prefixée -webkit- compatible avec le navigateur
+Safari 4+Propriété d'animation prefixée -webkit- compatible avec le
+navigateur Safari 4+
+Safari 4+
+
+Propriété d'animation CSS3 est compatible avec le navigateur Internet
+Explorer 10+Propriété d'animation CSS3 est compatible avec le navigateur
+Internet Explorer 10+
+Inter. Expl. 10+
+
+Propriété prefixée -o- d'animation est compatible avec le navigateur
+Opera 12+Propriété prefixée -o- d'animation est compatible avec le
+navigateur Opera 12+
+Opera 12+
+
+
+    Exemples d'animation CSS3.
+
+Exemple d'animation Css de couleurs :
+|@-webkit-keyframes nomanimationa {
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;}
+}
+@-moz-keyframes nomanimationa {
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;}
+}
+@-o-keyframes nomanimationa {
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;}
+}
+@keyframes nomanimationa{
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;}
+}
+div.exemplea{
+ -webkit-animation-name : nomanimationa;
+ -moz-animation-name : nomanimationa;
+ -o-animation-name : nomanimationa;
+ animation-name : nomanimationa;
+ -webkit-animation-duration : 10s;
+ -moz-animation-duration : 10s;
+ -o-animation-duration : 10s;
+ animation-duration: 10s;
+ width:100%;
+ height:15px;
+ background-color:red;
+}
+
+|Déplier
+Laisser le curseur sur moi, pour voir l'exemple d'animation.
+
+Exemple d'animation de couleurs avec mise en pause :
+|@-webkit-keyframes nomanimationa {
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;}
+}
+@-moz-keyframes nomanimationa {
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;} }
+@-o-keyframes nomanimationa {
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;}
+}
+@keyframes nomanimationa{
+ 0%{background-color:red;}
+ 25%{background-color:yellow;}
+ 50%{background-color:fuchsia ;}
+ 100%{background-color:green;}
+}
+div.exemplea{
+ -webkit-animation-name : nomanimationa;
+ -moz-animation-name : nomanimationa;
+ -o-animation-name : nomanimationa;
+ animation-name : nomanimationa;
+ -webkit-animation-duration : 10s;
+ -moz-animation-duration : 10s;
+ -o-animation-duration : 10s;
+ animation-duration: 10s;
+ width:100%;
+ height:15px;
+ background-color:red;
+}
+
+|Déplier
+Laisser le curseur sur moi, pour me mettre en pause.
+
+Exemple d'animation de couleurs avec mise en pause :
+|@-webkit-keyframes nomanimationc {
+0%{ webkit-transform : rotate(1deg); transform : rotate(1deg); }
+100%{ -webkit-transform : rotate(360deg); transform : rotate(360deg); }
+}
+@-moz-keyframes nomanimationc {
+0%{ -moz-transform : rotate(1deg); transform : rotate(1deg); }
+100%{ -moz-transform : rotate(360deg); transform : rotate(360deg); }
+}
+@-o-keyframes nomanimationc {
+0%{ -o-transform : rotate(1deg); transform : rotate(1deg); }
+100%{ -o-transform : rotate(360deg); transform : rotate(360deg); }
+}
+@keyframes nomanimationc{
+0%{
+-webkit-transform : rotate(1deg); -moz-transform : rotate(1deg);
+-o-transform : rotate(1deg); transform : rotate(1deg);
+}
+100%{
+-webkit-transform : rotate(360deg); -moz-transform : rotate(360deg);
+-o-transform : rotate(360deg); transform : rotate(360deg);
+}
+}
+.exemplec:hover {
+-webkit-animation-play-state : paused; -moz-animation-play-state : paused;
+-o-animation-play-state : paused; animation-play-state : paused;
+}
+.exemplec {
+ -webkit-animation-name : nomanimationc;
+ -moz-animation-name : nomanimationc;
+ -o-animation-name : nomanimationc;
+ animation-name : nomanimationc;
+ -webkit-animation-duration : 10s;
+ -moz-animation-duration : 10s;
+ -o-animation-duration : 10s;
+ animation-duration: 10s;
+ -webkit-animation-iteration-count : infinite;
+ -moz-animation-iteration-count : infinite;
+ -o-animation-iteration-count : infinite;
+ animation-iteration-count : infinite;
+display:block; height:15px; width:200px; padding:1em; }
+
+|Déplier
+Laisser le curseur sur moi .
+
+
+    Tester la compatibilité en Javascript
+
+Voici une petite fonction javascript pour tester, si le navigateur
+reconnait les animations CSS3.
+|function haveAnimation(){
+ var animation = false, domPrefixes = ['Webkit','Moz','O','ms','Khtml'],
+elm = document.createElement("span");
+ if(typeof(elm.style["animationName"]) != 'undefined' ) { return true; }
+ for( var i = 0; i < 5; i++ ) {
+   if( typeof(elm.style[domPrefixes[i] + 'AnimationName' ]) !=
+'undefined' ) {
+     return true;
+   }
+ }
+ return false;
+}
+
+|
+
+
+    Informations complémentaires.
+
+
+      *CSS3
+
+A ce jour (05/2013) les recommandations des animations du CSS3 ne sont
+pas sorties, il ne s'agit pour le moment que d'un projet de travail
+(Working Draft).
+Il est donc possible que certaines propriétés disparaissent ou apparaissent.
+
+
+      *animation-name
+
+La propriété css3 *animation-name* lie un élément à une animation Css.
+Vous devez aussi mettre les propriétés css préfixées : -webkit-
+animation-name, -moz-animation-name, -o-animation-name.
+Définition de la CSS animation-name <https://www.zonecss.fr/proprietes-
+css/animation-name-css.html>
+
+
+      *animation-duration
+
+La propriété css3 *animation-duration* spécifie la durée d'une animation
+Css. Vous devez aussi mettre les propriétés css préfixées : -webkit-
+animation-duration, -moz-animation-duration, -o-animation-duration.
+Définition de la CSS animation-duration <https://www.zonecss.fr/
+proprietes-css/animation-duration-css.html>
+
+
+      *animation-delay
+
+La propriété css3 *animation-delay* permet de mettre une pause avant de
+lire l'animation Css. Vous devez aussi mettre les propriétés css
+préfixées : -webkit-animation-delay, -moz-animation-delay, -o-animation-
+delay.
+Définition de la CSS animation-delay <https://www.zonecss.fr/proprietes-
+css/animation-delay-css.html>
+
+
+      *animation-direction
+
+La propriété css3 *animation-direction* spécifie le sens de lecture
+d'une animation Css. Vous devez aussi mettre les propriétés css
+préfixées : -webkit-animation-direction, -moz-animation-direction, -o-
+animation-direction.
+Définition de la CSS animation-direction <https://www.zonecss.fr/
+proprietes-css/animation-direction-css.html>
+
+
+      *animation-fill-mode
+
+La propriété css3 *animation-fill-mode* spécifie à quel moment de
+l'animation Css les effets sont apparents. Vous devez aussi mettre les
+propriétés css préfixées : -webkit-animation-fill-mode, -moz-animation-
+fill-mode, -o-animation-fill-mode.
+Définition de la CSS animation-fill-mode <https://www.zonecss.fr/
+proprietes-css/animation-fill-mode-css.html>
+
+
+      *animation-iteration-count
+
+La propriété css3 *animation-iteration-count* spécifie nombre de
+répétitions d'une animation Css. Vous devez aussi mettre les propriétés
+css préfixées : -webkit-animation-iteration-count, -moz-animation-
+iteration-count, -o-animation-iteration-count.
+Définition de la CSS animation-iteration-count <https://www.zonecss.fr/
+proprietes-css/animation-iteration-count-css.html>
+
+
+      *animation-timing-function
+
+La propriété css *animation-timing-function* spécifie la manière de
+progresser entre les images clés. Vous devez aussi mettre les propriétés
+css préfixées : -webkit-animation-timing-function, -moz-animation-
+timing-function, -o-animation-timing-function.
+Définition de la CSS animation-timing-function <https://www.zonecss.fr/
+proprietes-css/animation-timing-function-css.html>
+
+
+      *animation-play-state
+
+La propriété css *animation-play-state* spécifie si l'animation Css est
+en pause. Vous devez aussi mettre les propriétés css préfixées : -
+webkit-animation-play-state, -moz-animation-play-state, -o-animation-
+play-state.
+Définition de la CSS animation-play-state <https://www.zonecss.fr/
+proprietes-css/animation-play-state-css.html>
+
+
+      *keyframes
+
+La propriété css *@keyframes* permet de spécifier les images clés qui va
+composer votre animation Css. Vous devez aussi mettre les propriétés css
+préfixées : @-webkit-keyframes, @-moz-keyframes, @-o-keyframes.
+Définition de la CSS @keyframes <https://www.zonecss.fr/proprietes-css/
+keyframes-css.html>
+
+
+      *Sélecteurs CSS
+
+Cours sur l'utilisation des sélecteurs Css de type pseudo-classe.
+Sélecteur css pseudo-classe <https://www.zonecss.fr/cours-css/les-
+selecteurs-css.html#selecteur-css-pseudo-classe>
+
+
+      *Manipuler attribut class en javascript
+
+Cours sur la manipulation de l'attribut (X)HTML class.
+Manipuler attribut class <https://www.zonecss.fr/cours-css-javascript/
+manipuler-les-valeurs-de-l-attribut-class.html>
+
+
+      *transition CSS
+
+La propriété css *transition* permet de spécifier l'ensemble des
+propriétés css de la transition entre deux états d'une propriété css
+d'un élément.
+Définition de la CSS transition <https://www.zonecss.fr/proprietes-css/
+transition-css.html#dfn-transition>
+
+
+    Les liens.
+
+
+      *cubic-bezier.com
+
+Site où vous pouvez créer et tester des effets d'animation Css avec des
+courbes de Bézier cubique
+cubic-bezier.com <http://cubic-bezier.com/>
+
+
+      *matthewlein.com
+
+Site où vous pouvez créer et tester des effets d'animation Css avec des
+courbes de Bézier cubique
+CSS Easing Animation Tool <http://matthewlein.com/ceaser/>
+
+
+      *Animate.css
+
+Bibliothèque d'animations Css
+animate.css <http://daneden.me/animate/>
+
+
+      Avis sur l'article
+
+  * 1/5
+  * 2/5
+  * 3/5
+  * 4/5
+  * 5/5
+
+Votes: *4.2* / 5 - 28 votes
+Cliquez sur une étoile pour voter.
+
+
+      Partager cette page avec vos amis.
+
+Pinterest <https://outils-css.aliasdmc.fr/#pinterest>
+
+Facebook <https://outils-css.aliasdmc.fr/#facebook>
+
+Twitter <https://outils-css.aliasdmc.fr/#twitter>
+
+WordPress <https://outils-css.aliasdmc.fr/#wordpress>
+
+LinkedIn <https://outils-css.aliasdmc.fr/#linkedin>
+
+Blogger <https://outils-css.aliasdmc.fr/#blogger>
+
+LinkedIn <https://outils-css.aliasdmc.fr/#linkedin>
+
+Reddit <https://outils-css.aliasdmc.fr/#reddit>
+
+Copy Link <https://outils-css.aliasdmc.fr/#copy_link>
+
+Partager <https://www.addtoany.com/share#url=https%3A%2F%2Foutils-
+css.aliasdmc.fr%2Fles-animations-
+css3.php&title=Les%20animations%20CSS3%20%7C%20Les%20outils%20Css>
+
+
+      Suivez moi sur les réseaux sociaux.
+
+Suivre sur Facebook <https://www.facebook.com/pages/Zone-
+CSS/105951019435508> Suivre sur Twitter <https://twitter.com/zonexhtml>
+Bookmark sur Netvibes <https://www.netvibes.com/zone-info/> Voir sur
+Google+ <https://plus.google.com/+AliasdmcFr-Actualit%C3%A9s>
+
+	
+× <javascript:void(0)>
+
+	rechercher	 
+
+Recherche personnalisée
+	Trier par :
+Relevance
+Relevance
+Date
+
+
+      Plan du site
+
+ 1. Les outils css <https://outils-css.aliasdmc.fr/>
+ 2. Les unités de longueur CSS <https://outils-css.aliasdmc.fr/unites-
+    de-longueurs-css.php>
+ 3. Convertisseur d'unité de longueur CSS <https://outils-
+    css.aliasdmc.fr/convertir-unites-de-longueurs-css.php>
+ 4. Générateur de coins arrondis CSS <https://outils-css.aliasdmc.fr/
+    generateur_border-radius.php>
+ 5. Générateur d'ombres ou de lueurs CSS <https://outils-
+    css.aliasdmc.fr/generateur_box-shadow_css.php>
+ 6. Les animations en CSS3 <https://outils-css.aliasdmc.fr/les-
+    animations-css3.php>
+ 7. Les transformations en CSS3 <https://outils-css.aliasdmc.fr/les-
+    transformations-2d-css3.php>
+ 8. Les transitions en CSS3 <https://outils-css.aliasdmc.fr/les-
+    transitions-css3.php>
+ 9. Générateur de transitions en CSS3 <https://outils-css.aliasdmc.fr/
+    generateur-de-transitions-css3.php>
+10. Générateur de filtres en CSS3 <https://outils-css.aliasdmc.fr/
+    generateur-de-css-filter.php>
+11. Générateur de triangles en CSS3 <https://outils-css.aliasdmc.fr/
+    generateur-de-triangles-css.php>
+12. Convertisseur d'unité d'angle CSS <https://outils-css.aliasdmc.fr/
+    convertir-unites-d-angles-css.php>
+13. Fusionner deux matrices 3x3 CSS <https://outils-css.aliasdmc.fr/
+    calculer-la-fusion-de-matrix-2d-css.php>
+14. Générateur d'hexagone en CSS <https://outils-css.aliasdmc.fr/
+    generateur-hexagone-css.php>
+15. Générateur de Flexbox CSS <https://outils-css.aliasdmc.fr/
+    generateur-de-flexbox.php>
+
+
+      Zone *CSS*
+
+Zone CSS <https://www.zonecss.fr/>
+
+Glossaire de feuilles de styles et leurs compatibilités navigateurs et
+les bugs d'interprétations, des cours et exemples de CSS.
+Zone CSS <http://www.zonecss.fr/>
+
+
+      Zone *XHTML*
+
+Zone XHTML <https://www.aliasdmc.fr/>
+
+Glossaire de balises (X)HTML et leurs attributs. Des cours de javascript
+et un glossaire le Document Object Model CORE et HTML.
+Zone XHTML <http://www.aliasdmc.fr/>
+
+
+      Zone *SEARCH*
+
+Zone SEARCH <https://search.aliasdmc.fr/>
+
+Moteur de recherche multi-site qui recherche sur l'ensemble des Zones
+DMC. dans le site XHTML, le site CSS et le blog.
+Zone SEARCH <http://search.aliasdmc.fr/>
+
+
+      Zone *INFO*
+
+Zone INFO <http://www.aliasdmc.com/developpement/>
+
+Articles concernant entre autres la conception de site Internet. Des
+articles pour le webdesigner, le webmaster et développeur.
+Zone BLOG <http://www.aliasdmc.com/developpement/>
+
+Facebook <https://outils-css.aliasdmc.fr/#facebook>
+
+Twitter <https://outils-css.aliasdmc.fr/#twitter>
+
+Reddit <https://outils-css.aliasdmc.fr/#reddit>
+
+LinkedIn <https://outils-css.aliasdmc.fr/#linkedin>
+
+Copy Link <https://outils-css.aliasdmc.fr/#copy_link>
+
+Partager <https://www.addtoany.com/share#url=https%3A%2F%2Foutils-
+css.aliasdmc.fr%2Fles-animations-
+css3.php&title=Les%20animations%20CSS3%20%7C%20Les%20outils%20Css>
+X
+
+
+      *keyframes
+
+La propriété css *@keyframes* permet de spécifier les images clés qui va
+composer votre animation Css. Vous devez aussi mettre les propriétés css
+préfixées : @-webkit-keyframes, @-moz-keyframes, @-o-keyframes.
+Définition de la CSS @keyframes <https://www.zonecss.fr/proprietes-css/
+keyframes-css.html>
+
+✓
+Merci d'avoir partagé!
+
+AddToAny <https://www.addtoany.com/>
+
+Plus… <#addtoany>
+	
+
