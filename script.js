@@ -1,4 +1,4 @@
-//loufti update 25-06-2024
+//loutfi update 25-06-2024
 // Initialisation des variables
 let score = 0; // Score initial
 let clickValue = 1; // Valeur de chaque clic
