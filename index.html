@@ -1,244 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookie Clicker Test1</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <div class="navbar-left">
-          <button
-            class="btn btn-outline-light"
-            id="infoButton"
-            data-bs-toggle="modal"
-            data-bs-target="#infoModal"
-          >
-            Info
-          </button>
-          <div
-            class="modal fade"
-            id="infoModal"
-            tabindex="-1"
-            aria-labelledby="infoModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="infoModalLabel">
-                    Informations sur le jeu
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <h2>Description du Jeu Cookie Clicker</h2>
-                  <p><strong>Titre :</strong> Cookie Clicker</p>
-                  <p>
-                    <strong>Genre :</strong> Jeu de clic (Clicker Game),
-                    Incremental Game
-                  </p>
-                  <p>
-                    <strong>Plateforme :</strong> Navigateur web (HTML5),
-                    disponible également sur mobile (iOS, Android)
-                  </p>
-                  <p><strong>Développeur :</strong> Julien "Orteil" Thiennot</p>
-                  <p><strong>Date de sortie initiale :</strong> Août 2013</p>
-                  <h3>Concept de base :</h3>
-                  <p>
-                    Cookie Clicker est un jeu de type incremental où le joueur
-                    clique sur un gros cookie affiché à l'écran pour produire
-                    des cookies virtuels. Le but du jeu est de produire autant
-                    de cookies que possible en cliquant sur le cookie géant et
-                    en achetant des améliorations qui augmentent la production
-                    automatique de cookies.
-                  </p>
-                  <h3>Mécanismes du jeu :</h3>
-                  <ul>
-                    <li>
-                      <strong>Cookie géant :</strong> Le joueur commence le jeu
-                      avec un seul cookie géant qu'il peut cliquer pour produire
-                      des cookies.
-                    </li>
-                    <li>
-                      <strong>Chaque clic :</strong> Chaque clic sur le cookie
-                      géant augmente le nombre de cookies accumulés.
-                    </li>
-                    <li>
-                      <strong>Améliorations :</strong> Les joueurs peuvent
-                      acheter des améliorations qui augmentent la production de
-                      cookies automatiquement, même lorsque le joueur n'est pas
-                      actif.
-                    </li>
-                    <li>
-                      <strong>Objectif :</strong> L'objectif est de maximiser la
-                      production de cookies et d'explorer les différents niveaux
-                      d'améliorations disponibles.
-                    </li>
-                  </ul>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fermer
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="navbar-right">
-          <button
-            class="btn btn-outline-light"
-            id="optionsButton"
-            data-bs-toggle="modal"
-            data-bs-target="#optionsModal"
-          >
-            Options
-          </button>
-          <div
-            class="modal fade"
-            id="optionsModal"
-            tabindex="-1"
-            aria-labelledby="optionsModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="optionsModalLabel">
-                    Options du jeu
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <h2>Options du Jeu</h2>
-                  <p><strong>Langue :</strong> Français</p>
-                  <p>
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Cookie Clicker Test1</title>
+   <link
+     rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+   />
+   <link rel="stylesheet" href="style.css" />
+ </head>
+ <body>
+  <audio id="clickSound">
+    <source src="audio/audio-fond.mp3" type="audio/mpeg">
+  </audio>
+  
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+     <div class="container-fluid">
+       <div class="navbar-left">
+         <button
+           class="btn btn-outline-light"
+           id="infoButton"
+           data-bs-toggle="modal"
+           data-bs-target="#infoModal"
+         >
+           Info
+         </button>
+         <div
+           class="modal fade"
+           id="infoModal"
+           tabindex="-1"
+           aria-labelledby="infoModalLabel"
+           aria-hidden="true"
+         >
+           <div class="modal-dialog">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <h5 class="modal-title" id="infoModalLabel">
+                   Informations sur le jeu
+                 </h5>
+                 <button
+                   type="button"
+                   class="btn-close"
+                   data-bs-dismiss="modal"
+                   aria-label="Close"
+                 ></button>
+               </div>
+               <div class="modal-body">
+                 <h2>Description du Jeu Cookie Clicker</h2>
+                 <p><strong>Titre :</strong> Cookie Clicker</p>
+                 <p>
+                   <strong>Genre :</strong> Jeu de clic (Clicker Game),
+                   Incremental Game
+                 </p>
+                 <p>
+                   <strong>Plateforme :</strong> Navigateur web (HTML5),
+                   disponible Ã©galement sur mobile (iOS, Android)
+                 </p>
+                 <p><strong>DÃ©veloppeur :</strong> Julien "Orteil" Thiennot</p>
+                 <p><strong>Date de sortie initiale :</strong> AoÃ»t 2013</p>
+                 <h3>Concept de base :</h3>
+                 <p>
+                   Cookie Clicker est un jeu de type incremental oÃ¹ le joueur
+                   clique sur un gros cookie affichÃ© Ã  l'Ã©cran pour produire
+                   des cookies virtuels. Le but du jeu est de produire autant
+                   de cookies que possible en cliquant sur le cookie gÃ©ant et
+                   en achetant des amÃ©liorations qui augmentent la production
+                   automatique de cookies.
+                 </p>
+                 <h3>MÃ©canismes du jeu :</h3>
+                 <ul>
+                   <li>
+                     <strong>Cookie gÃ©ant :</strong> Le joueur commence le jeu
+                     avec un seul cookie gÃ©ant qu'il peut cliquer pour produire
+                     des cookies.
+                   </li>
+                   <li>
+                     <strong>Chaque clic :</strong> Chaque clic sur le cookie
+                     gÃ©ant augmente le nombre de cookies accumulÃ©s.
+                   </li>
+                   <li>
+                     <strong>AmÃ©liorations :</strong> Les joueurs peuvent
+                     acheter des amÃ©liorations qui augmentent la production de
+                     cookies automatiquement, mÃªme lorsque le joueur n'est pas
+                     actif.
+                   </li>
+                   <li>
+                     <strong>Objectif :</strong> L'objectif est de maximiser la
+                     production de cookies et d'explorer les diffÃ©rents niveaux
+                     d'amÃ©liorations disponibles.
+                   </li>
+                 </ul>
+               </div>
+               <div class="modal-footer">
+                 <button
+                   type="button"
+                   class="btn btn-secondary"
+                   data-bs-dismiss="modal"
+                 >
+                   Fermer
+                 </button>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="title ecriture">
+         <h2><strong>Loutomandine's Cookie Quest</strong></h2>
+       </div>
+       <div class="navbar-right">
+         <button
+           class="btn btn-outline-light"
+           id="optionsButton"
+           data-bs-toggle="modal"
+           data-bs-target="#optionsModal"
+         >
+           Options
+         </button>
+         <div
+           class="modal fade"
+           id="optionsModal"
+           tabindex="-1"
+           aria-labelledby="optionsModalLabel"
+           aria-hidden="true"
+         >
+           <div class="modal-dialog">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <h5 class="modal-title" id="optionsModalLabel">
+                   Options du jeu
+                 </h5>
+                 <button
+                   type="button"
+                   class="btn-close"
+                   data-bs-dismiss="modal"
+                   aria-label="Close"
+                 ></button>
+               </div>
+               <div class="modal-body">
+                 <h2>Options du Jeu</h2>
+                 <p><strong>Langue :</strong> Français</p>
+                 <p></p>
                     <strong>Volume :</strong>
-                    <input type="range" min="0" max="100" value="50" />
-                    <span>50</span>
+                    <input type="range" id="volumeRange" min="0" max="100" value="50" onchange="adjustVolume()">
+                    <span id="volumeValue">50</span>
                   </p>
-                  <p>
-                    <strong>Mode nuit :</strong>
-                    <input type="checkbox" id="mode-nuit" />
-                    <label for="mode-nuit">Activer le mode nuit</label>
-                  </p>
-                  <p>
-                    <strong>Notifications :</strong>
-                    <select>
-                      <option value="oui">Oui</option>
-                      <option value="non" selected>Non</option>
-                    </select>
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fermer
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <span id="statistics" class="text-light ms-3">Score: 0 cookies</span>
-      </div>
-    </nav>
+                 </p>
+                 <p>
+                   <strong>Mode nuit :</strong>
+                   <input type="checkbox" id="mode-nuit" />
+                   <label for="mode-nuit">Activer le mode nuit</label>
+                 </p>
+                 <p>
+                   <strong>Notifications :</strong>
+                   <select>
+                     <option value="oui">Oui</option>
+                     <option value="non" selected>Non</option>
+                   </select>
+                 </p>
+               </div>
+               <div class="modal-footer">
+                 <button
+                   type="button"
+                   class="btn btn-secondary"
+                   data-bs-dismiss="modal"
+                 >
+                   Fermer
+                 </button>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </nav>
 
-    <div id="js_timer">
-      <div id="timer">00:00</div>
-    </div>
 
-    <div
-      class="container d-flex justify-content-center align-items-center vh-100"
-    >
-      <div class="text-center">
-        <div id="lumps" class="Game">
-          <div id="sprite"></div>
-          <div
-            id="lumpsIcon1"
-            class="usesIcon"
-            onclick="clickLump(this);"
-          ></div>
-          <div
-            id="lumpsIcon2"
-            class="usesIcon"
-            onclick="clickLump(this);"
-          ></div>
-          <div
-            id="lumpsIcon3"
-            class="usesIcon"
-            onclick="clickLump(this);"
-          ></div>
-          <div
-            id="lumpsIcon4"
-            class="usesIcon"
-            onclick="clickLump(this);"
-          ></div>
-        </div>
-        <div class="mt-3">
-          <div id="scoreContainer">
-            <span id="Score"
-              >Score: <span id="lumpsScore">0</span> cookies</span
-            >
-          </div>
-          <div class="mt-3">
-            <button id="multiplierButton" class="btn btn-success">
-              Multiplier x1 (10 cookies)
-            </button>
-            <button id="stopMultiplierButton" class="btn btn-danger">
-              Stop Multiplier
-            </button>
-            <p id="multiplierCounter">
-              Multiplier: <span id="multiplierValue">1</span>
-            </p>
-          </div>
-          <div class="mt-3">
-            <button id="autoClickButton" class="btn btn-info">
-              Auto-Click (100 cookies)
-            </button>
-            <button id="stopAutoClickButton" class="btn btn-danger">
-              Stop Auto-Click
-            </button>
-            <p id="autoClickCounter">
-              Auto-Click: <span id="autoClickValue">0</span>
-            </p>
-          </div>
-          <div class="mt-3">
-            <button id="bonusButton" class="btn">Bonus (200 cookies)</button>
-            <button id="stopBonusButton" class="btn btn-danger">
-              Stop Bonus
-            </button>
-            <p id="bonusCounter">Bonus: <span id="bonusValue">0</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
+   <div id="js_timer" class="timer">
+     <div id="timer">00:00</div>
+   </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+
+   <div
+     class="container d-flex justify-content-center align-items-center vh-100"
+   >
+     <div class="text-center">
+       <div id="lumps" class="Game">
+         <div id="sprite"></div>
+         <div
+           id="lumpsIcon1"
+           class="usesIcon"
+           onclick="clickLump(this);"
+         ></div>
+         <div
+           id="lumpsIcon2"
+           class="usesIcon"
+           onclick="clickLump(this);"
+         ></div>
+         <div
+           id="lumpsIcon3"
+           class="usesIcon"
+           onclick="clickLump(this);"
+         ></div>
+         <div
+           id="lumpsIcon4"
+           class="usesIcon"
+           onclick="clickLump(this);"
+         ></div>
+       </div>
+       <div class="mt-3">
+         <div id="scoreContainer">
+           <span id="Score"
+             >Score: <span id="lumpsScore">0</span> cookies</span
+           >
+         </div>
+         <div class="mt-3">
+           <button id="multiplierButton" class="btn btn-success">
+             Multiplier x1 (10 cookies)
+           </button>
+           <button id="stopMultiplierButton" class="btn btn-danger">
+             Stop Multiplier
+           </button>
+           <p id="multiplierCounter">
+             Multiplier: <span id="multiplierValue">1</span>
+           </p>
+         </div>
+         <div class="mt-3">
+           <button id="autoClickButton" class="btn btn-info">
+             Auto-Click (100 cookies)
+           </button>
+           <button id="stopAutoClickButton" class="btn btn-danger">
+             Stop Auto-Click
+           </button>
+           <p id="autoClickCounter">
+             Auto-Click: <span id="autoClickValue">0</span>
+           </p>
+         </div>
+         <div class="mt-3">
+           <button id="bonusButton" class="btn">Bonus (200 cookies)</button>
+           <button id="stopBonusButton" class="btn btn-danger">
+             Stop Bonus
+           </button>
+           <p id="bonusCounter">Bonus: <span id="bonusValue">0</span></p>
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="script.js"></script>
+ </body>
 </html>
