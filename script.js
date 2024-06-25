@@ -27,6 +27,8 @@ const stopAutoClickButton = document.getElementById("stopAutoClickButton");
 const stopMultiplierButton = document.getElementById("stopMultiplierButton");
 const stopBonusButton = document.getElementById("stopBonusButton");
 const sprite = document.getElementById("sprite");
+// Récupérez l'élément audio
+const clickSound = document.getElementById('clickSound');
 
 
 // Fonction appelÃ©e lors du clic sur un cookie
@@ -280,9 +282,6 @@ window.onload = startTimer;
 
 // Initialisation des variables et autres fonctions
 
-// Récupérez l'élément audio
-const clickSound = document.getElementById('clickSound');
-
 // Fonction pour jouer le son
 function playClickSound() {
   clickSound.currentTime = 0; // Rembobinez le son au début pour le jouer à chaque clic
@@ -295,6 +294,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Autres initialisations
 });
 
+function beep() {
+  var beep = new Audio();
+  beep.src = "audio/audio-fond.mp3";
+  beep.play();
+}
 
 // Autres fonctions JavaScript nÃ©cessaires ici...
 // Code Ã  exÃ©cuter lorsque la page est chargÃ©e
