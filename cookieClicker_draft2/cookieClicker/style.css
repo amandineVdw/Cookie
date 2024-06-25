@@ -1,17 +1,43 @@
+/* Base body styles */
 body {
   padding: 0;
   margin: 0;
   background: url(image/bgBlue.jpg);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
 }
 
-#lumpsIcon1,
-#lumpsIcon2,
-#lumpsIcon3,
-#lumpsIcon4 {
+/* Navbar styles */
+nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+#infoButton,
+#optionsButton {
+  margin-right: 10px;
+}
+
+#statistics {
+  font-size: 18px;
+}
+
+.modal-body {
+  font-size: 16px;
+}
+
+/* Lumps icons styles */
+#cookieIcon1,
+#cookieIcon2,
+#cookieIcon3,
+#cookieIcon4 {
   width: 135px;
   height: 135px;
   background-size: cover;
@@ -21,24 +47,24 @@ body {
   align-items: center;
   cursor: pointer;
   position: relative;
-  color: red; /* Couleur du texte */
-  font-size: 1.5em; /* Taille de la police */
+  color: red;
+  font-size: 1.5em;
 }
 
-#lumpsIcon1 {
+#cookieIcon1 {
   background: url(image/cookie.image1.png);
 }
-#lumpsIcon2 {
+#cookieIcon2 {
   background: url(image/cookie.image2.png);
 }
-#lumpsIcon3 {
+#cookieIcon3 {
   background: url(image/cookie.image3.png);
 }
-#lumpsIcon4 {
+#cookieIcon4 {
   background: url(image/cookie.image4.png);
 }
 
-#lumps {
+#cookie {
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, 135px);
@@ -46,11 +72,13 @@ body {
   gap: 0;
 }
 
+/* Score container styles */
 #scoreContainer {
   margin-top: 20px;
   text-align: center;
 }
 
+/* Floating text styles */
 .floatingText {
   position: absolute;
   animation: moveUp 1s forwards;
@@ -61,6 +89,36 @@ body {
   border: none;
 }
 
+@-webkit-keyframes moveUp {
+  from {
+    top: 100%;
+    opacity: 1;
+  }
+  to {
+    top: -150%;
+    opacity: 0;
+  }
+} /* -webkit- Chrome et Safari */
+@-moz-keyframes moveUp {
+  from {
+    top: 100%;
+    opacity: 1;
+  }
+  to {
+    top: -150%;
+    opacity: 0;
+  }
+} /* -moz -Firefox */
+@-o-keyframes moveUp {
+  from {
+    top: 100%;
+    opacity: 1;
+  }
+  to {
+    top: -150%;
+    opacity: 0;
+  }
+} /* -o- Opera */
 @keyframes moveUp {
   from {
     top: 100%;
@@ -111,28 +169,56 @@ button#bonusButton.animate {
   }
 }
 
-#sprite {
+/* Sprite animation styles */
+#spriteSuperCookie {
   position: absolute;
-  width: 540px; /* Largeur de l'animation */
-  height: 485px; /* Hauteur de l'animation */
-  background: url(image/cookieAnimation.png); /* Image du sprite pour l'animation */
+  width: 540px;
+  height: 485px;
+  background: url(image/cookieAnimation.png);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover; /* Assure que l'animation couvre tout le conteneur de l'animation */
-  z-index: 1; /* Assure que l'animation est au-dessus des autres éléments */
-  display: none; /* Caché initialement */
-  animation: animateSprite 1s steps(11) infinite; /* Animation plus lente */
-  top: 0; /* Position initiale en haut du conteneur */
-  left: 400px; /* Position initiale à gauche du conteneur */
+  background-size: cover;
+  z-index: 1;
+  display: none;
+  animation: animateSprite 1s steps(11) infinite;
+  top: 0;
+  left: 400px;
 }
 
+@-webkit-keyframes animateSprite {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -5335px;
+  }
+}
+
+/* -webkit- Chrome et Safari */
+@-moz-keyframes animateSprite {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -5335px;
+  }
+}
+
+/* -moz -Firefox */
+@-o-keyframes animateSprite {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -5335px;
+  }
+}
+/* -o- Opera */
 @keyframes animateSprite {
   from {
     background-position: 0 0;
   }
   to {
-    background-position: 0 -5335px; /* Ajuster la taille totale de l'image sprite */
+    background-position: 0 -5335px;
   }
 }
-
-

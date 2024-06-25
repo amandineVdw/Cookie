@@ -15,6 +15,7 @@ Depuis CSS3, vous avez la possibilité de faire des animations en CSS3. Cependan
   ...;
 } /* Navigateur aux normes w3c */
 
+
 /* 1- En Css3 votre animation est regroupée dans une règle Css @keyframes. Cette règle décrit les propriétés CSS à modifier par image clé. l'animation Css3, vous devez faire le calcul suivant :
 Seconde ciblée*100/Durée totale soit 10*100/20 = 50%. */
 
