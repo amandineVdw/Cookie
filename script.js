@@ -1,185 +1,234 @@
-// Variables globales pour suivre le score, le multiplicateur, le nombre de clics automatiques, le nombre de bonus, et l'état des fonctions
-let score = 0;
-let multiplier = 1;
-let autoClickCount = 0;
-let bonusCount = 0;
-let bonusActive = false;
-let autoClickInterval = null;
-let bonusTimeout = null;
+//loufti update 25-06-2024
+// Initialisation des variables
+let score = 0; // Score initial
+let clickValue = 1; // Valeur de chaque clic
+let multiplier = 1; // Multiplicateur initial
+let multiplierCost = 10; // Coût initial pour augmenter le multiplicateur
+let autoClickCost = 100; // Coût initial pour activer l'auto-clic
+let bonusCost = 200; // Coût initial pour activer le bonus
+let autoClickInterval; // Variable pour stocker l'intervalle d'auto-clic
+let bonusTimeout; // Variable pour stocker le timeout du bonus
+let clickCounter = 0; // Compteur de clics
+let bonusActivationCounter = 0; // Compteur d'activation du bonus
+let imageIndex = 0; // Index des images
+let autoClickCount = 0; // Variable pour suivre le nombre d'auto-clics
+let bonusActive = false; // Variable pour vérifier si le bonus est actif
+let isAnimationActive = false; // Variable pour suivre l'état de l'animation
 
 // Sélection des éléments HTML
-let scoreValue = document.getElementById('scoreValue');
-let multiplierButton = document.getElementById('multiplierButton');
-let multiplierValue = document.getElementById('multiplierValue');
-let autoClickButton = document.getElementById('autoClickButton');
-let autoClickValue = document.getElementById('autoClickValue');
-let bonusButton = document.getElementById('bonusButton');
-let bonusValue = document.getElementById('bonusValue');
-let cookieButton = document.getElementById('cookie');
-let stopMultiplierButton = document.getElementById('stopMultiplierButton');
-let stopAutoClickButton = document.getElementById('stopAutoClickButton');
-let stopBonusButton = document.getElementById('stopBonusButton');
+const multiplierLabel = document.getElementById("multiplierValue");
+const multiplierButton = document.getElementById("multiplierButton");
+const autoClickLabel = document.getElementById("autoClickValue");
+const autoClickButton = document.getElementById("autoClickButton");
+const bonusLabel = document.getElementById("bonusValue");
+const bonusButton = document.getElementById("bonusButton");
+const scoreLabel = document.getElementById("lumpsScore");
+const stopAutoClickButton = document.getElementById("stopAutoClickButton");
+const stopMultiplierButton = document.getElementById("stopMultiplierButton");
+const stopBonusButton = document.getElementById("stopBonusButton");
+const sprite = document.getElementById("sprite");
 
-// Fonction pour mettre à jour l'affichage du score
-function updateScore() {
-    scoreValue.textContent = score;
+// Fonction appelée lors du clic sur un cookie
+function clickLump(element) {
+  score += clickValue * multiplier; // Augmente le score en fonction de la valeur du clic et du multiplicateur
+  updateScore(); // Met à jour l'affichage du score
+  showFloatingText(element, "+1"); // Affiche le texte flottant "+1"
 }
 
-// Fonction pour gérer les clics sur le bouton "cookie"
-function handleCookieClick() {
-    // Ajoute des cookies en fonction du multiplicateur
-    score = score + multiplier;
-    // Si le bonus est actif, double le score
-    if (bonusActive) {
-        score = score * 2;
-    }
-    // Met à jour l'affichage du score
-    updateScore();
-    // Vérifie si un bonus peut être activé
-    checkBonusActivation();
+// Fonction pour afficher un texte flottant
+function showFloatingText(element, text) {
+  const floatingText = document.createElement("div");
+  floatingText.className = "floatingText";
+  floatingText.innerText = text;
+  element.appendChild(floatingText);
+  setTimeout(() => {
+    element.removeChild(floatingText);
+  }, 1000); // Retire le texte flottant après 1 seconde
 }
 
-// Ajouter un écouteur d'événement pour le bouton "cookie"
-cookieButton.addEventListener('click', handleCookieClick);
-
-// Fonction pour gérer l'achat du multiplicateur
-function handleMultiplierPurchase() {
+// Fonction pour gérer le clic sur le bouton de multiplicateur
+multiplierButton.addEventListener("click", function () {
+  if (score >= multiplierCost && multiplier < 5) {
     // Vérifie si le score est suffisant et si le multiplicateur est inférieur à 5
-    if (score >= 10 && multiplier < 5) {
-        // Déduit 10 cookies du score
-        score = score - 10;
-        // Augmente le multiplicateur
-        multiplier = multiplier + 1;
-        // Met à jour l'affichage du multiplicateur
-        multiplierValue.textContent = multiplier;
-        // Met à jour l'affichage du score
-        updateScore();
-        // Vérifie si un bonus peut être activé
-        checkBonusActivation();
-    }
-}
+    score -= multiplierCost; // Diminue le score du coût du multiplicateur
+    multiplier++; // Augmente le multiplicateur
+    clickValue *= 2; // Double la valeur de chaque clic
+    multiplierCost *= 2; // Double le coût du multiplicateur
+    updateScore(); // Met à jour l'affichage du score
+    updateMultiplier(); // Met à jour l'affichage du multiplicateur
+  } else if (multiplier >= 5) {
+    alert("Niveau max atteint!"); // Alerte lorsque le multiplicateur atteint le niveau maximum
+  } else {
+    alert("Pas assez de cookies!"); // Alerte lorsque le score est insuffisant
+  }
+});
 
-// Ajouter un écouteur d'événement pour le bouton du multiplicateur
-multiplierButton.addEventListener('click', handleMultiplierPurchase);
-
-// Fonction pour arrêter le multiplicateur
-function stopMultiplier() {
-    // Réinitialise le multiplicateur à 1
-    multiplier = 1;
-    // Met à jour l'affichage du multiplicateur
-    multiplierValue.textContent = multiplier;
-}
-
-// Ajouter un écouteur d'événement pour le bouton d'arrêt du multiplicateur
-stopMultiplierButton.addEventListener('click', stopMultiplier);
-
-// Fonction pour gérer l'achat de l'auto-clic
-function handleAutoClickPurchase() {
+// Fonction pour gérer le clic sur le bouton d'auto-clic
+autoClickButton.addEventListener("click", function () {
+  if (score >= autoClickCost) {
     // Vérifie si le score est suffisant
-    if (score >= 100) {
-        // Déduit 100 cookies du score
-        score = score - 100;
-        // Augmente le nombre d'auto-clics
-        autoClickCount = autoClickCount + 1;
-        // Met à jour l'affichage des auto-clics
-        autoClickValue.textContent = autoClickCount;
-        // Met à jour l'affichage du score
-        updateScore();
-        // Si l'auto-clic n'est pas déjà actif
-        if (autoClickInterval === null) {
-            // Définit un intervalle qui ajoute des cookies automatiquement toutes les secondes
-            autoClickInterval = setInterval(function() {
-                // Ajoute des cookies en fonction du multiplicateur
-                score *= multiplier;
-                // Si le bonus est actif, double le score
-                if (bonusActive) {
-                    score *= 2;
-                }
-                // Met à jour l'affichage du score
-                updateScore();
-                // Vérifie si un bonus peut être activé
-                checkBonusActivation();
-            }, 1000); // Répète toutes les secondes
-        }
-    }
+    score -= autoClickCost; // Diminue le score du coût de l'auto-clic
+    autoClickCost *= 2; // Double le coût de l'auto-clic
+    updateScore(); // Met à jour l'affichage du score
+    startAutoClick(); // Démarre l'auto-clic
+  } else {
+    alert("Pas assez de cookies!"); // Alerte lorsque le score est insuffisant
+  }
+});
+
+// Fonction pour gérer le clic sur le bouton de bonus
+bonusButton.addEventListener("click", function () {
+  if (score >= bonusCost) {
+    // Vérifie si le score est suffisant
+    score -= bonusCost; // Diminue le score du coût du bonus
+    updateScore(); // Met à jour l'affichage du score
+    activateBonus(); // Active le bonus
+    bonusButton.classList.add("animate");
+    setTimeout(() => {
+      bonusButton.classList.remove("animate");
+    }, 600); // Retire l'animation après 0.6 seconde
+  } else {
+    alert("Pas assez de cookies!"); // Alerte lorsque le score est insuffisant
+  }
+});
+
+// Ajout d'écouteurs d'événements pour les boutons d'arrêt
+stopAutoClickButton.addEventListener("click", stopAutoClick);
+stopMultiplierButton.addEventListener("click", stopMultiplier);
+stopBonusButton.addEventListener("click", stopBonus);
+
+// Fonction pour mettre à jour l'affichage du multiplicateur
+function updateMultiplier() {
+  multiplierButton.textContent = `Multiplier x${multiplier} (${multiplierCost} cookies)`;
+  multiplierLabel.textContent = multiplier;
 }
 
-// Ajouter un écouteur d'événement pour le bouton d'achat de l'auto-clic
-autoClickButton.addEventListener('click', handleAutoClickPurchase);
-
-// Fonction pour arrêter l'auto-clic
-function stopAutoClick() {
-    // Arrête l'intervalle d'auto-clic
-    clearInterval(autoClickInterval);
-    // Réinitialise l'intervalle
-    autoClickInterval = null;
-    // Réinitialise le nombre d'auto-clics
-    autoClickCount = 0;
-    // Met à jour l'affichage des auto-clics
-    autoClickValue.textContent = autoClickCount;
+// Fonction pour démarrer l'auto-clic
+function startAutoClick() {
+  if (!autoClickInterval) {
+    // Vérifie si l'auto-clic n'est pas déjà actif
+    autoClickInterval = setInterval(function () {
+      score += clickValue * multiplier; // Augmente le score en fonction de la valeur du clic et du multiplicateur
+      updateScore(); // Met à jour l'affichage du score
+    }, 1000); // Exécute toutes les secondes
+    autoClickCount++; // Incrémente le nombre d'auto-clics
+    autoClickLabel.textContent = autoClickCount; // Met à jour l'affichage des auto-clics
+  }
 }
-
-// Ajouter un écouteur d'événement pour le bouton d'arrêt de l'auto-clic
-stopAutoClickButton.addEventListener('click', stopAutoClick);
-
-// Fonction pour gérer l'activation du bonus
-function handleBonusActivation() {
-    // Vérifie si le score est suffisant et si le bonus n'est pas déjà actif
-    if (score >= 200 && bonusActive === false) {
-        // Déduit 200 cookies du score
-        score = score - 200;
-        // Active le bonus
-        bonusActive = true;
-        // Augmente le nombre de bonus
-        bonusCount = bonusCount + 1;
-        // Met à jour l'affichage des bonus
-        bonusValue.textContent = bonusCount;
-        // Met à jour l'affichage du score
-        updateScore();
-        // Active le bonus
-        activateBonus();
-    }
-}
-
-// Ajouter un écouteur d'événement pour le bouton d'activation du bonus
-bonusButton.addEventListener('click', handleBonusActivation);
-
-// Fonction pour arrêter le bonus
-function stopBonus() {
-    // Arrête le temps du bonus
-    clearTimeout(bonusTimeout);
-    // Réinitialise le multiplicateur à 1
-    multiplier = 1;
-    // Désactive le bonus
-    bonusActive = false;
-    // Met à jour l'affichage des bonus
-    bonusValue.textContent = bonusCount;
-    // Vérifie si un bonus peut être activé
-    checkBonusActivation();
-}
-
-// Ajouter un écouteur d'événement pour le bouton d'arrêt du bonus
-stopBonusButton.addEventListener('click', stopBonus);
 
 // Fonction pour activer le bonus
 function activateBonus() {
-    // Définit un délai après lequel le bonus sera désactivé
-    bonusTimeout = setTimeout(function() {
-        // Réinitialise le multiplicateur après 30 secondes
-        multiplier = 1;
-        // Désactive le bonus
-        bonusActive = false;
-        // Vérifie si un bonus peut être activé
-        checkBonusActivation();
-    }, 30000); // 30 secondes
+  clickValue *= 2; // Double la valeur de chaque clic
+  bonusLabel.textContent++; // Incrémente le nombre de bonus actifs
+  updateScore(); // Met à jour l'affichage du score
+  bonusActivationCounter++; // Incrémente le compteur d'activation du bonus
+  bonusActive = true; // Activer le bonus
+  changeCookieImageOnBonus(); // Change l'image des cookies
+  bonusTimeout = setTimeout(function () {
+    clickValue /= 2; // Réinitialise la valeur de chaque clic
+    bonusLabel.textContent--; // Décrémente le nombre de bonus actifs
+    deactivateBonusAnimation(); // Désactiver l'animation lorsque le bonus expire
+    bonusActive = false; // Désactiver le bonus
+  }, 30000); // Le bonus dure 30 secondes
+
+  activateBonusAnimation(); // Activer l'animation lorsque le bonus est activé
 }
 
-// Fonction pour vérifier si un nouveau bonus peut être activé
-function checkBonusActivation() {
-    // Si le score est suffisant et que le bonus n'est pas déjà actif
-    bonusButton.disabled = !(score >= 200 && bonusActive === false);
+// Fonction pour vérifier le score et désactiver les boutons si nécessaire
+function checkCookies() {
+  multiplierButton.disabled = score < multiplierCost; // Désactive le bouton si le score est insuffisant
+  autoClickButton.disabled = score < autoClickCost; // Désactive le bouton si le score est insuffisant
+  bonusButton.disabled = score < bonusCost; // Désactive le bouton si le score est insuffisant
 }
 
-// Vérification initiale lors du chargement de la page
-checkBonusActivation();
-updateScore();
+// Code à exécuter lorsque la page est chargée
+document.addEventListener("DOMContentLoaded", function () {
+  updateScore(); // Met à jour l'affichage du score
+  updateMultiplier(); // Met à jour l'affichage du multiplicateur
+  checkCookies(); // Vérifie le score et désactive les boutons si nécessaire
+});
+
+// Fonction pour mettre à jour l'affichage du score
+function updateScore() {
+  scoreLabel.textContent = score.toLocaleString(); // Affiche le score avec des séparateurs de milliers
+  checkCookies(); // Vérifie le score et désactive les boutons si nécessaire
+}
+
+// Fonction pour changer l'image de tous les cookies
+function changeCookieImageAll(index) {
+  for (let i = 1; i <= 4; i++) {
+    let lumpIcon = document.getElementById(`lumpsIcon${i}`);
+    lumpIcon.style.backgroundImage = `url(image/index${index}/SuperCookieImage${i}.png)`;
+  }
+}
+
+// Fonction pour désactiver le bonus
+function deactivateBonus() {
+  clearTimeout(bonusTimeout); // Annuler le timeout du bonus si désactivé manuellement
+  clickValue /= 2; // Réinitialise la valeur de chaque clic
+  bonusLabel.textContent--; // Décrémente le nombre de bonus actifs
+  deactivateBonusAnimation(); // Désactiver l'animation lorsque le bonus est désactivé manuellement
+}
+
+// Fonction pour activer l'animation de bonus
+function activateBonusAnimation() {
+  if (!isAnimationActive) {
+    // Vérifie si l'animation n'est pas déjà active
+    sprite.style.display = "block"; // Affiche l'animation lorsque le bonus est activé
+    isAnimationActive = true; // Met à jour l'état de l'animation
+  }
+}
+
+// Fonction pour désactiver l'animation de bonus
+function deactivateBonusAnimation() {
+  if (isAnimationActive) {
+    // Vérifie si l'animation est active
+    sprite.style.display = "none"; // Cache l'animation lorsque le bonus n'est pas actif
+    isAnimationActive = false; // Met à jour l'état de l'animation
+  }
+}
+
+// Fonction pour changer l'image des cookies lors de l'activation du bonus
+function changeCookieImageOnBonus() {
+  if (bonusActivationCounter >= 1 && bonusActivationCounter <= 5) {
+    changeCookieImageAll(1);
+  } else if (bonusActivationCounter > 5 && bonusActivationCounter <= 10) {
+    changeCookieImageAll(2);
+  } else if (bonusActivationCounter > 10) {
+    activateBonusAnimation(); // Activer l'animation lorsque le bonus est supérieur à 10
+  } else {
+    changeCookieImageAll(3);
+    deactivateBonusAnimation(); // Désactiver l'animation si bonusActivationCounter ne correspond à aucun cas
+  }
+}
+
+// Fonction pour arrêter l'auto-clic
+function stopAutoClick() {
+  clearInterval(autoClickInterval); // Arrête l'intervalle d'auto-clic
+  autoClickInterval = null; // Réinitialise l'intervalle
+  autoClickCount = 0; // Réinitialise le nombre d'auto-clics
+  autoClickLabel.textContent = autoClickCount; // Met à jour l'affichage des auto-clics
+}
+
+// Fonction pour arrêter le multiplicateur
+function stopMultiplier() {
+  multiplier = 1; // Réinitialise le multiplicateur à 1
+  multiplierLabel.textContent = multiplier; // Met à jour l'affichage du multiplicateur
+}
+
+// Fonction pour arrêter le bonus
+function stopBonus() {
+  clearTimeout(bonusTimeout); // Arrête le temps du bonus
+  multiplier = 1; // Réinitialise le multiplicateur à 1
+  bonusActive = false; // Désactive le bonus
+  bonusLabel.textContent--; // Met à jour l'affichage des bonus
+  deactivateBonusAnimation(); // Désactiver l'animation lorsque le bonus est désactivé
+}
+
+// Autres fonctions JavaScript nécessaires ici...
+// Code à exécuter lorsque la page est chargée
+document.addEventListener("DOMContentLoaded", function () {
+  updateScore();
+  updateMultiplier();
+  checkCookies();
+});
