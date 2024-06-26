@@ -17,23 +17,34 @@ const autoClickButton = document.getElementById("autoClickButton");
 const bonusLabel = document.getElementById("bonusValue");
 const bonusButton = document.getElementById("bonusButton");
 const scoreLabel = document.getElementById("lumpsScore");
-var sprite = document.getElementById('sprite');
+var sprite = document.getElementById("sprite");
 var isAnimationActive = false; // Variable pour suivre l'état de l'animation
 
 function clickLump(element) {
   score += clickValue * multiplier;
   updateScore();
-  showFloatingText(element, "+1");
+  showFloatingText(element, "+");
 }
 
 function showFloatingText(element, text) {
   const floatingText = document.createElement("div");
   floatingText.className = "floatingText";
-  floatingText.innerText = text;
+
+  const iconImg = document.createElement("img");
+  iconImg.src = "image/cookieClicker1.png"; // Chemin vers votre image locale
+  iconImg.alt = "Cookie Clicker Icon";
+
+  // Création d'un span pour contenir l'image et le texte
+  const iconSpan = document.createElement("span");
+  iconSpan.appendChild(iconImg);
+  iconSpan.innerHTML += " " + text; // Ajoute le texte à côté de l'image
+
+  floatingText.appendChild(iconSpan);
   element.appendChild(floatingText);
+
   setTimeout(() => {
     element.removeChild(floatingText);
-  }, 1000);
+  }, 1000); // Retire le texte flottant après 1 seconde
 }
 
 multiplierButton.addEventListener("click", function () {
@@ -123,8 +134,6 @@ function changeCookieImageAll(index) {
   }
 }
 
-
-
 function activateBonus() {
   clickValue *= 2;
   bonusLabel.textContent++;
@@ -132,9 +141,9 @@ function activateBonus() {
   bonusActivationCounter++;
   changeCookieImageOnBonus();
   bonusTimeout = setTimeout(function () {
-      clickValue /= 2;
-      bonusLabel.textContent--;
-      deactivateBonusAnimation(); // Désactiver l'animation lorsque le bonus expire
+    clickValue /= 2;
+    bonusLabel.textContent--;
+    deactivateBonusAnimation(); // Désactiver l'animation lorsque le bonus expire
   }, 30000);
 
   activateBonusAnimation(); // Activer l'animation lorsque le bonus est activé
@@ -148,30 +157,31 @@ function deactivateBonus() {
 }
 
 function activateBonusAnimation() {
-  if (!isAnimationActive) { // Vérifie si l'animation n'est pas déjà active
-      sprite.style.display = 'block'; // Affiche l'animation lorsque le bonus est activé
-      isAnimationActive = true; // Met à jour l'état de l'animation
+  if (!isAnimationActive) {
+    // Vérifie si l'animation n'est pas déjà active
+    sprite.style.display = "block"; // Affiche l'animation lorsque le bonus est activé
+    isAnimationActive = true; // Met à jour l'état de l'animation
   }
 }
 
 function deactivateBonusAnimation() {
-  if (isAnimationActive) { // Vérifie si l'animation est active
-      sprite.style.display = 'none'; // Cache l'animation lorsque le bonus n'est pas actif
-      isAnimationActive = false; // Met à jour l'état de l'animation
+  if (isAnimationActive) {
+    // Vérifie si l'animation est active
+    sprite.style.display = "none"; // Cache l'animation lorsque le bonus n'est pas actif
+    isAnimationActive = false; // Met à jour l'état de l'animation
   }
 }
 
-
 function changeCookieImageOnBonus() {
   if (bonusActivationCounter >= 1 && bonusActivationCounter <= 5) {
-      changeCookieImageAll(1);
+    changeCookieImageAll(1);
   } else if (bonusActivationCounter > 5 && bonusActivationCounter <= 10) {
-      changeCookieImageAll(2);
+    changeCookieImageAll(3);
   } else if (bonusActivationCounter > 10) {
-      activateBonusAnimation(); // Activer l'animation lorsque le bonus est supérieur à 10
+    activateBonusAnimation(); // Activer l'animation lorsque le bonus est supérieur à 10
   } else {
-      changeCookieImageAll(3);
-      deactivateBonusAnimation(); // Désactiver l'animation si bonusActivationCounter ne correspond à aucun cas
+    changeCookieImageAll(2);
+    deactivateBonusAnimation(); // Désactiver l'animation si bonusActivationCounter ne correspond à aucun cas
   }
 }
 

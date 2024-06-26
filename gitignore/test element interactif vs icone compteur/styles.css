@@ -53,22 +53,26 @@ body {
 
 .floatingText {
   position: absolute;
-  animation: moveUp 1s forwards;
-  font-size: 2em;
+  animation: floatUp 1s ease-out;
+  color: red;
+  font-size: 1em;
   font-weight: bold;
-  pointer-events: none;
-  background: none;
-  border: none;
 }
 
-@keyframes moveUp {
-  from {
-    top: 100%;
+.iconImg {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+@keyframes floatUp {
+  0% {
     opacity: 1;
+    transform: translateY(0);
   }
-  to {
-    top: -150%;
+  100% {
     opacity: 0;
+    transform: translateY(-50px);
   }
 }
 
@@ -134,5 +138,3 @@ button#bonusButton.animate {
     background-position: 0 -5335px; /* Ajuster la taille totale de l'image sprite */
   }
 }
-
-
