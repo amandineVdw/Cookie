@@ -12,9 +12,9 @@ Avec le mode bonus, une surprise éclatante vous attends !
 
 ### Team
 
--Amandine
--Loutfi
--Tommy
+- Amandine
+- Loutfi
+- Tommy
 
 ## Objectifs du Projet
 
