@@ -279,7 +279,7 @@ window.onload = startTimer;
 // Initialisation des variables et autres fonctions
 
 // Récupérez l'élément audio
-const gameSound = new Audio("/Cookie-test1/audio/audio-fond.mp3");
+const gameSound = new Audio("/audio/fond.mp3");
 
 // Fonction pour jouer le son
 function playGameSound() {
@@ -305,7 +305,7 @@ function stopGameSound() {
 // Fonction pour jouer le beep on-click
 function beep() {
   var beep = new Audio();
-  beep.src = "/audio/audio-beep.mp3";
+  beep.src = "/audio/beep.mp3";
   beep.play();
 }
 
