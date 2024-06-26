@@ -321,4 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateMultiplier();
   checkCookies();
   adjustVolume();
+  playGameSound();
+  stopGameSound();
+  beep();
 });
