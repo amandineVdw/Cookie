@@ -46,4 +46,6 @@ L'objectif de ce projet est de :
 ## Sources 
 
 - **Pixabay** : Son background et son clic.
-- **Cleanpng** :
+- **Cleanpng** : Image cookies.
+
+  Bonne aventure à vous !
