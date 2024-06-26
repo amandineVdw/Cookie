@@ -309,10 +309,11 @@ function beep() {
   beep.play();
 }
 
+// Ajout d'un écouteur d'évenement pour le bouton d'activation du son
+document.getElementById("startSound").addEventListener("click", playGameSound);
+
 // Ajout d'un écouteur d'événement pour le bouton d'arrêt du son
-document
-  .getElementById("stopSoundButton")
-  .addEventListener("click", stopClickSound);
+document.getElementById("stopSound").addEventListener("click", stopGameSound);
 
 // Code à  exécuter lorsque la page est chargée
 document.addEventListener("DOMContentLoaded", function () {
