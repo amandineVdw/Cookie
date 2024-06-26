@@ -176,7 +176,7 @@ function changeCookieImageOnBonus() {
   if (bonusActivationCounter >= 1 && bonusActivationCounter <= 5) {
     changeCookieImageAll(1);
   } else if (bonusActivationCounter > 5 && bonusActivationCounter <= 10) {
-    changeCookieImageAll(3);
+    changeCookieImageAll(2);
   } else if (bonusActivationCounter > 10) {
     activateBonusAnimation(); // Activer l'animation lorsque le bonus est supérieur à 10
   } else {
