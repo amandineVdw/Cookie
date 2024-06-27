@@ -38,6 +38,10 @@ L'objectif de ce projet est de :
 - **JavaScript** 
 - **Css**
 
+## Github Page
+
+https://amandinevdw.github.io/Cookie/
+
 ## Video démonstrative
 
 
